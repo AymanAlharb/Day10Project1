@@ -39,7 +39,7 @@ public class TicTacToe {
         userInput();
         //Start the game.
         playingMethod();
-        System.out.println("Thank you");
+        System.out.println("Thank you for playing the game.");
     }
 
     public static void print() throws InterruptedException {
@@ -73,8 +73,6 @@ public class TicTacToe {
         int turn = random.nextInt(1, 3);
         if (turn == 1) {
             xMove = true;
-            userXO = "x";
-            botXO = "o";
             System.out.println("You will play first: ");
             return false;
         } else {
@@ -192,7 +190,7 @@ public class TicTacToe {
         moveConverter(move);
         //Make sure the user input a move within the range
         if (move > 9 || move < 1) return false;
-        return (!(gameBoard[x][y].equals("x") || gameBoard[x][y].equals("o")));
+        return (!(gameBoard[x][y].equals(userXO) || gameBoard[x][y].equals(botXO)));
     }
 
     //Convert the move and update x and y. * x and y acts like i and j.
@@ -279,13 +277,28 @@ public class TicTacToe {
         return false;
     }
 
+    //Advance settings
     public static void advanceSettings() {
         System.out.println("This is the advance settings menu");
-        System.out.println("If you want to change the waiting time press 1");
-        String choice = input.next();
-        if (choice.equals("1")) {
-            System.out.println("Enter the time in milliseconds");
-            wait = input.nextInt();
+        while (true) {
+            System.out.println("1- Change the waiting time" +
+                    "\n2- Customizable X and O" +
+                    "\n0- Exit");
+            String choice = input.next();
+            if(choice.equals("0")) break;
+            switch (choice) {
+                case "1":
+                    System.out.println("Enter the time in milliseconds");
+                    wait = input.nextInt();
+                    break;
+                case "2":
+                    System.out.println("Character length should be one");
+                    System.out.println("Enter the character for the user: ");
+                    userXO = input.next();
+                    System.out.println("Enter the character for the bot: ");
+                    botXO = input.next();
+                    break;
+            }
         }
     }
 }
